@@ -3,13 +3,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from tests.helpers.otp_utils import get_latest_email_id, wait_for_new_otp
-from tests.helpers.driver_utils import get_driver
-import os
-import json
+from tests.AuthHelpers.otp_utils import get_latest_email_id, wait_for_new_otp
+
 
 #will store the cookies of one user in session directory.
-# SESSION_DIR = "tests/helpers/sessions"
+# SESSION_DIR = "tests/AuthHelpers/sessions"
 #
 # def save_cookies(driver, email):
 #     os.makedirs(SESSION_DIR, exist_ok=True) #create session directory if it doesnt exist
@@ -33,7 +31,7 @@ import json
 
 def login_with_otp(email, password,  driver=None):
     if driver is None:
-        from tests.helpers.driver_utils import get_driver
+        from tests.Driver.driver_utils import get_driver
         driver = get_driver()
     driver.get("http://178.128.114.165:73/admin/login")
     driver.maximize_window()

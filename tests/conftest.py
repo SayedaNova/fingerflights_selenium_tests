@@ -1,5 +1,5 @@
 import pytest
-from tests.helpers.driver_utils import get_driver
+from tests.Driver.driver_utils import get_driver
 
 @pytest.fixture
 def driver():
