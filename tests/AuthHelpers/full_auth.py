@@ -1,7 +1,7 @@
 from tests.Driver.driver_utils import get_driver
 from tests.AuthHelpers.login_utils import login_with_otp
 from tests.AuthHelpers.logout_utils import logout_user
-from tests.users.user_data import users
+from tests.Data.user_data import users
 
 
 def run_login_logout_all_in_one_window():
@@ -15,6 +15,6 @@ def run_login_logout_all_in_one_window():
             success = logout_user(driver, email)
             assert success, f"❌ Logout failed for {email}"
 
-        print("✅ All users logged in and out in one window successfully.")
+        print("✅ All Data logged in and out in one window successfully.")
     finally:
         driver.quit()
