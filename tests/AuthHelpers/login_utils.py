@@ -5,7 +5,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from tests.AuthHelpers.otp_utils import get_latest_email_id, wait_for_new_otp
 
-
 #will store the cookies of one user in session directory.
 # SESSION_DIR = "tests/AuthHelpers/sessions"
 #
@@ -34,7 +33,7 @@ def login_with_otp(email, password,  driver=None):
         from tests.Driver.driver_utils import get_driver
         driver = get_driver()
     driver.get("http://178.128.114.165:73/admin/login")
-    driver.maximize_window()
+    # driver.maximize_window()
     time.sleep(1)
 
     previous_id = get_latest_email_id()

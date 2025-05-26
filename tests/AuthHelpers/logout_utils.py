@@ -4,19 +4,19 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 def logout_user(driver, email):
-
+    # email = "trendssaas24@gmail.com"
     try:
-        wait = WebDriverWait(driver, 5)
+        wait = WebDriverWait(driver, 10)
 
-        time.sleep(2)
+        time.sleep(5)
         profile_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[.//span[text()='S']]")))
         profile_button.click()
-        time.sleep(2)
+        time.sleep(5)
         logout_button = wait.until(EC.element_to_be_clickable(
             (By.XPATH, "//div[@role='menuitem' and normalize-space()='Sign out']")
         ))
         logout_button.click()
-        time.sleep(2)
+        time.sleep(5)
 
         if "login" in driver.current_url:
             print(f"✅ Logged out {email}")
