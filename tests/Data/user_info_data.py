@@ -33,4 +33,4 @@ def generate_fake_users(n):
     return users
 
 # Generate fake users
-users_to_create = generate_fake_users(n=5)
+users_to_create = generate_fake_users(n=1)

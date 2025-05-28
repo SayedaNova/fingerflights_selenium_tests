@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 # from tests.AuthHelpers.login_utils import login_with_otp
-from tests.UserHelpers.create_utils import create_users
+# from tests.UserHelpers.create_utils import create_users
 from tests.B2BUserHelpers.b2b_create_user_utils import fill_and_submit_b2b_form
 from tests.Data.b2b_data import b2b_to_create
 

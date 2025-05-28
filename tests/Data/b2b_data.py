@@ -30,4 +30,4 @@ def generate_fake_b2b_users(n):
     return b2b_users
 
 # Generate fake B2B users
-b2b_to_create = generate_fake_b2b_users(n=5)
+b2b_to_create = generate_fake_b2b_users(n=1)
