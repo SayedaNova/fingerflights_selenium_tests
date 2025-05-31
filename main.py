@@ -10,7 +10,7 @@ if __name__ == "__main__":
     # logout_user(driver, SUPERADMIN_EMAIL)
 
     #Step 3: Admin Profile update
-    admin_profile_update(ADMIN_EMAIL, ADMIN_PASSWORD, driver=driver)
+    # admin_profile_update(ADMIN_EMAIL, ADMIN_PASSWORD, driver=driver)
 
     # # Step 2: Logout Admin
     # logout_user(driver, ADMIN_EMAIL)

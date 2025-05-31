@@ -4,6 +4,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from tests.B2BUserHelpers.b2b_create_user_utils import fill_and_submit_b2b_form
+from tests.B2BUserHelpers.delete_b2b_utils import delete_b2b
+from tests.B2BUserHelpers.update_b2b_utils import update_b2b_info
 from tests.Data.b2b_data import b2b_to_create
 
 # ✅ Define these at the top-level so other modules (like main.py) can import them
@@ -48,6 +50,16 @@ def create_b2b_users(driver):
         if idx < len(b2b_to_create) - 1:
             driver.get("http://178.128.114.165:73/b2b/create")
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "name")))
+
+            # --- Update
+        update_b2b_info(driver, b2b)
+        time.sleep(2)
+        print(f"✅ Updated user: {b2b['email']}")
+
+            # --- Delete
+        delete_b2b(driver, b2b)
+        time.sleep(2)
+        print(f"✅ Deleted user: {b2b['email']}")
 
 # # You can keep this optional block for direct testing
 # if __name__ == "__main__":

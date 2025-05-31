@@ -6,6 +6,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from tests.AuthHelpers.login_utils import login_with_otp
 from tests.UserHelpers.create_user_utils import fill_and_submit_user_form
 from tests.Data.user_info_data import users_to_create
+from tests.UserHelpers.delete_user_utils import delete_user
+from tests.UserHelpers.update_user_utils import update_user_info
+
 
 # # ✅ Define these at the top-level so other modules (like main.py) can import them
 # email = "trendssaas24@gmail.com"
@@ -13,6 +16,7 @@ from tests.Data.user_info_data import users_to_create
 
 def navigate_to_create_user_page(email, password):
     driver = login_with_otp(email, password)
+
     wait = WebDriverWait(driver, 15)
 
     user_menu_button = wait.until(EC.element_to_be_clickable(
@@ -45,6 +49,21 @@ def create_users(driver):
         if idx < len(users_to_create) - 1:
             driver.get("http://178.128.114.165:73/user/create")
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "name")))
+
+        # # --- Update
+        # update_user_info(driver, user)
+        # time.sleep(2)
+        # print(f"✅ Updated user: {user['email']}")
+        #
+        # # --- Delete
+        # delete_user(driver, user)
+        # time.sleep(2)
+        # print(f"✅ Deleted user: {user['email']}")
+
+        # # If there are more users to create, go back to /user/create
+        # if idx < len(users_to_create) - 1:
+        #     driver.get("http://178.128.114.165:73/user/create")
+        #     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "name")))
 
 # # You can keep this optional block for direct testing
 # if __name__ == "__main__":

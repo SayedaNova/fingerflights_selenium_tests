@@ -57,7 +57,33 @@ def fill_and_submit_user_form(driver, user_info_data):
     driver.execute_script("arguments[0].click();", status_button)
     print(f"✅ Status set to: {user_info_data['status']}")
 
-    # Fill permissions (assuming checkboxes with name
+    try:
+        # Try all common variations of submit buttons
+        submit_button = wait.until(EC.presence_of_element_located((
+            By.XPATH, "//button[@type='submit' and contains(text(), 'Submit')]"
+        )))
+
+        # Scroll to it and ensure it's visible
+        driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", submit_button)
+        time.sleep(0.5)
+
+        # Confirm it's interactable
+        if submit_button.is_displayed() and submit_button.is_enabled():
+            driver.execute_script("arguments[0].click();", submit_button)
+            print("✅ Form submitted via JavaScript click.")
+        else:
+            print("⚠️ Submit button found but not interactable. Trying JS click directly.")
+            driver.execute_script("arguments[0].click();", submit_button)
+
+        # Wait for redirect to the user list page
+        wait.until(EC.url_contains("/user/list"))
+        print("✅ Redirected to User List after submission.")
+
+    except Exception as e:
+        print(f"❌ Could not submit form or redirect failed: {e}")
+
+
+# Fill permissions (assuming checkboxes with name
     # s like Dashboard_Create, Dashboard_Read, etc.)
     # for module, actions in user_info_data.get("permissions", {}).items():
     #     for action, enabled in actions.items():
@@ -93,32 +119,4 @@ def fill_and_submit_user_form(driver, user_info_data):
     #                 print(f"⚠️ Could not set permission {module}.{action}: {e}")
 
         # --- Submit form
-
-
-    try:
-        # Try all common variations of submit buttons
-        submit_button = wait.until(EC.presence_of_element_located((
-            By.XPATH, "//button[@type='submit' and contains(text(), 'Submit')]"
-        )))
-
-        # Scroll to it and ensure it's visible
-        driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", submit_button)
-        time.sleep(0.5)
-
-        # Confirm it's interactable
-        if submit_button.is_displayed() and submit_button.is_enabled():
-            driver.execute_script("arguments[0].click();", submit_button)
-            print("✅ Form submitted via JavaScript click.")
-        else:
-            print("⚠️ Submit button found but not interactable. Trying JS click directly.")
-            driver.execute_script("arguments[0].click();", submit_button)
-
-        # Wait for redirect to the user list page
-        wait.until(EC.url_contains("/user/list"))
-        print("✅ Redirected to User List after submission.")
-
-    except Exception as e:
-        print(f"❌ Could not submit form or redirect failed: {e}")
-
-
 

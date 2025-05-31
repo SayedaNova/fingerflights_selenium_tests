@@ -4,8 +4,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from tests.Data.role_data import roles_to_create
+from tests.RoleHelpers.delete_role_utils import delete_role
 from tests.RoleHelpers.new_role_utils import fill_and_submit_role_form
-
+from tests.RoleHelpers.update_role_utils import update_role
 
 # ✅ Define these at the top-level so other modules (like main.py) can import them
 email = "trendssaas24@gmail.com"
@@ -54,3 +55,13 @@ def create_roles(driver):
             WebDriverWait(driver, 10).until(EC.visibility_of_element_located((
                 By.XPATH, "//input[@placeholder='Role name']"
             )))
+
+            # --- Update
+        update_role(driver, role)
+        time.sleep(2)
+        print(f"✅ Updated role: {role['role_name']}")
+
+            # --- Delete
+        delete_role(driver, role)
+        time.sleep(2)
+        print(f"✅ Deleted role: {role['role_name']}")
