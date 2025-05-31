@@ -1,7 +1,7 @@
 # tests/UserHelpers/create_user_utils.py
 import time
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait, Select
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
@@ -44,12 +44,6 @@ def fill_and_submit_user_form(driver, user_info_data):
        """
     driver.execute_script(select_script, role_value)
     print(f"✅ Set role to: {user_info_data['role']} (value='{role_value}')")
-
-    # Click the correct role from the visible dropdown options
-    # role_option = wait.until(EC.element_to_be_clickable((
-    #     By.XPATH, f"//div[@role='option' and contains(text(), '{user_info_data['role']}')]"
-    # )))
-    # role_option.click()
 
     # --- Select gender via JavaScript (bypass overlay issues)
     gender_value = user_info_data["gender"].lower()

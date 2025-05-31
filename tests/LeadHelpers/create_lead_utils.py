@@ -35,12 +35,6 @@ def navigate_to_lead_page(email=None, password=None, driver=None):
     print("✅ Fully loaded New Lead page.")
     return driver
 
-# def create_b2b_users(driver):
-#     # for b2b in b2b_to_create:
-#     #     fill_and_submit_b2b_form(driver, b2b)
-#         # driver.get("http://178.128.114.165:73/b2b/create")
-#         # WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "name")))
-
 def create_lead(driver):
     for idx, lead in enumerate(leads_to_create):
         fill_and_submit_lead_form(driver, lead)
@@ -54,8 +48,6 @@ def create_lead(driver):
         if idx < len(leads_to_create) - 1:
             driver.get("http://178.128.114.165:73/lead/create")
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "name")))
-
-        return driver
 
 # # You can keep this optional block for direct testing
 # if __name__ == "__main__":

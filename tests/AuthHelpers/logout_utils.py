@@ -9,7 +9,11 @@ def logout_user(driver, email):
         wait = WebDriverWait(driver, 10)
 
         time.sleep(5)
-        profile_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[.//span[text()='S']]")))
+        # profile_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[.//span[text()='S']]")))
+        profile_button = wait.until(EC.element_to_be_clickable((
+            By.XPATH, "//button[@aria-haspopup='menu' and contains(@class, 'rounded-full')]"
+        )))
+
         profile_button.click()
         time.sleep(5)
         logout_button = wait.until(EC.element_to_be_clickable(

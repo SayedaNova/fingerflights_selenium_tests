@@ -7,9 +7,9 @@ from tests.AuthHelpers.login_utils import login_with_otp
 from tests.UserHelpers.create_user_utils import fill_and_submit_user_form
 from tests.Data.user_info_data import users_to_create
 
-# ✅ Define these at the top-level so other modules (like main.py) can import them
-email = "trendssaas24@gmail.com"
-password = "password"
+# # ✅ Define these at the top-level so other modules (like main.py) can import them
+# email = "trendssaas24@gmail.com"
+# password = "password"
 
 def navigate_to_create_user_page(email, password):
     driver = login_with_otp(email, password)
@@ -45,9 +45,6 @@ def create_users(driver):
         if idx < len(users_to_create) - 1:
             driver.get("http://178.128.114.165:73/user/create")
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "name")))
-
-        # driver.get("http://178.128.114.165:73/user/create")
-        # WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "name")))
 
 # # You can keep this optional block for direct testing
 # if __name__ == "__main__":

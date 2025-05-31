@@ -278,15 +278,8 @@ def fill_and_submit_vendor_form(driver, vendor_data):
     body.send_keys(Keys.ESCAPE)
     time.sleep(2)
 
-    # --- ✅ Fill Name Field
-    name_input = wait.until(EC.presence_of_element_located((By.NAME, "name")))
-    name_input.clear()
-    name_input.send_keys(vendor_data["name"])
-
-    # --- ✅ Fill Balance Field
-    balance_input = driver.find_element(By.NAME, "balance")
-    balance_input.clear()
-    balance_input.send_keys(str(vendor_data["balance"]))
+    driver.find_element(By.NAME, "name").send_keys(vendor_data["name"])
+    driver.find_element(By.NAME, "balance").send_keys(str(vendor_data["balance"]))
 
     status_value = "1" if vendor_data["status"].lower() == "active" else "0"
     status_button = driver.find_element(By.XPATH, f"//button[@role='radio' and @value='{status_value}']")

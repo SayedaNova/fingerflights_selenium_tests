@@ -140,36 +140,6 @@ def fill_and_submit_lead_form(driver, lead_data):
     # )))
     # upazila_option.click()
 
-    # Fill address
-
-    # Wait for address field visibility
-    # Wait for address textarea
-    # address_field = wait.until(EC.presence_of_element_located((By.NAME, "address")))
-    #
-    # # Scroll into view smoothly and center it
-    # driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", address_field)
-    # time.sleep(0.5)  # Wait for scrolling animation
-    #
-    # # Wait until clickable (visible and enabled)
-    # address_field = wait.until(EC.element_to_be_clickable((By.NAME, "address")))
-    #
-    # # Try ActionChains click (sometimes better than element.click())
-    # try:
-    #     ActionChains(driver).move_to_element(address_field).click().perform()
-    # except Exception:
-    #     # Fallback: JS click if ActionChains fails
-    #     driver.execute_script("arguments[0].click();", address_field)
-    #
-    # # Clear and send keys
-    # # address_field.clear()
-    # address_field.send_keys(lead_data["address"])
-    #
-    # # Fill description
-    # description_field = wait.until(EC.visibility_of_element_located((By.NAME, "description")))
-    # # driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", description_field)
-    # description_field.clear()
-    # description_field.send_keys(lead_data["description"])
-
     # --- ✅ Close dropdown (ESCAPE or click elsewhere)
     body = driver.find_element(By.TAG_NAME, 'body')
     body.send_keys(Keys.ESCAPE)

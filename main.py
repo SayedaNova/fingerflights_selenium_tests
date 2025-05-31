@@ -1,21 +1,20 @@
 from tests.CreateOperation.create_operation import create
-from tests.UserHelpers.create_utils import email, password
-from tests.AuthHelpers.logout_utils import logout_user
-from tests.LeadHelpers.create_lead_utils import navigate_to_lead_page, create_lead
-from tests.VendorHelpers.create_vendor_utils import navigate_to_vendor_page, create_vendor
-from tests.PassengerHelpers.create_passenger_utils import navigate_to_passenger_page, create_passenger
-
+from tests.Data.user_data import SUPERADMIN_EMAIL, SUPERADMIN_PASSWORD, ADMIN_EMAIL, ADMIN_PASSWORD
+from tests.AdminProfileUpdate.adminprofileupdate import admin_profile_update
 
 if __name__ == "__main__":
-    driver = create(email, password)
-    # create(email, password)
-    # navigate_to_lead_page(email, password, driver)
-    # create_lead(driver)
-    # navigate_to_vendor_page(email, password, driver)
-    # create_vendor(driver)
-    # navigate_to_passenger_page(email, password, driver)
-    # create_passenger(driver)
-    logout_user(driver, email)
+    # Step 1: SuperAdmin creates everything
+    driver = create(SUPERADMIN_EMAIL, SUPERADMIN_PASSWORD)
+
+    # # Step 2: Logout SuperAdmin
+    # logout_user(driver, SUPERADMIN_EMAIL)
+
+    #Step 3: Admin Profile update
+    admin_profile_update(ADMIN_EMAIL, ADMIN_PASSWORD, driver=driver)
+
+    # # Step 2: Logout Admin
+    # logout_user(driver, ADMIN_EMAIL)
+
 
 
 
