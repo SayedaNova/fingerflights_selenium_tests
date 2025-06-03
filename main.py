@@ -1,5 +1,5 @@
-from tests.CreateOperation.create_operation import create
-from tests.Data.user_data import SUPERADMIN_EMAIL, SUPERADMIN_PASSWORD, ADMIN_EMAIL, ADMIN_PASSWORD
+from tests.WholeCrudOperation.crud_operation import create
+from tests.Module_Data.user_data import SUPERADMIN_EMAIL, SUPERADMIN_PASSWORD, ADMIN_EMAIL, ADMIN_PASSWORD
 from tests.AdminProfileUpdate.adminprofileupdate import admin_profile_update
 
 if __name__ == "__main__":
