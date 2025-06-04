@@ -97,19 +97,19 @@ def update_passenger(driver, original_passenger):
     print(f"✅ Gender updated to: {updated_passenger['gender']}")
 
     click_date_button_by_label(wait,"Date of Birth")
-    time.sleep(1)
+    time.sleep(2)
     select_date_from_picker(wait, "Date of Birth", updated_passenger["date_of_birth"])
-    time.sleep(1)
+    time.sleep(2)
 
     click_date_button_by_label(wait, "Passport Issue Date")
-    time.sleep(1)
+    time.sleep(2)
     select_date_from_picker(wait, "Passport Issue Date", updated_passenger["passport_issue_date"])
-    time.sleep(1)
+    time.sleep(2)
 
     click_date_button_by_label(wait, "Passport Expire Date")
-    time.sleep(1)
+    time.sleep(2)
     select_date_from_picker(wait, "Passport Expire Date", updated_passenger["passport_expiry_date"])
-    time.sleep(1)
+    time.sleep(2)
 
     try:
         submit_button = wait.until(EC.presence_of_element_located((
