@@ -28,7 +28,7 @@ def generate_fake_leads(n):
 
     return leads
 # Example usage
-leads_to_create = generate_fake_leads(n=1)
+leads_to_create = generate_fake_leads(n=2)
 
 # from faker import Faker
 # import random

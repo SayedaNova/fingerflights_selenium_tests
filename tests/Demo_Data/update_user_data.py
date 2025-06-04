@@ -1,4 +1,4 @@
-# tests/Module_Data/update_user_data.py
+# tests/Demo_Data/update_user_data.py
 
 import random
 from faker import Faker

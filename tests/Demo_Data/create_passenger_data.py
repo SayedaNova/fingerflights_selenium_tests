@@ -51,4 +51,4 @@ def generate_fake_passengers(n):
 
     return passengers
 # Example usage
-passengers_to_create = generate_fake_passengers(n=1)
+passengers_to_create = generate_fake_passengers(n=2)

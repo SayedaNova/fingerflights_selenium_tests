@@ -5,7 +5,7 @@ from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-import tests.Module_Data.b2b_data
+import tests.Demo_Data.create_b2b_data
 
 def delete_b2b(driver, updated_b2b):
     time.sleep(2)
@@ -32,7 +32,7 @@ def delete_b2b(driver, updated_b2b):
             EC.presence_of_element_located((By.XPATH, "//div[@role='alertdialog']"))
         )
 
-        time.sleep(2)
+        time.sleep(3)
 
         # Click the 'Continue' button in the modal
         continue_btn = WebDriverWait(driver, 10).until(

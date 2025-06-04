@@ -3,8 +3,8 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from tests.Module_Data.update_b2b_data import generate_updated_b2b
-from tests.Module_Data.update_b2b_data import generate_updated_b2b
+from tests.Demo_Data.update_b2b_data import generate_updated_b2b
+from tests.Demo_Data.update_b2b_data import generate_updated_b2b
 
 
 def update_b2b(driver, original_b2b):

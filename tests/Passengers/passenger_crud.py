@@ -3,7 +3,7 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from tests.Module_Data.passenger_data import passengers_to_create
+from tests.Demo_Data.create_passenger_data import passengers_to_create
 from tests.Passengers.create_passenger_utils import fill_and_submit_passenger_form
 from tests.Passengers.delete_passenger_utils import delete_passenger
 from tests.Passengers.update_passenger_utils import update_passenger
@@ -42,19 +42,19 @@ def create_passenger(driver):
         fill_and_submit_passenger_form(driver, passenger)
         print(idx, passenger)
 
-        # After form submission, wait for redirection to user list
         WebDriverWait(driver, 10).until(EC.url_contains("/passenger/list"))
-        time.sleep(5)
+        time.sleep(3)
 
-        # If there are more users to create, go back to /user/create
+        updated_passenger = update_passenger(driver, passenger)
+        time.sleep(3)
+        delete_passenger(driver, updated_passenger)
+        time.sleep(3)
+
         if idx < len(passengers_to_create) - 1:
             driver.get("http://178.128.114.165:73/passenger/create")
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "first_name")))
-
-        update_passenger(driver, passenger)
-        time.sleep(1)
-        delete_passenger(driver, passenger)
-        time.sleep(1)
+            print("➡️ Ready for next passenger creation\n")
+            time.sleep(3)
 # # You can keep this optional block for direct testing
 # if __name__ == "__main__":
 #     navigate_to_create_user_page(email, password)

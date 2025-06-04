@@ -1,6 +1,6 @@
 from tests.Auth.login_utils import login_with_otp
 from tests.Auth.logout_utils import logout_user
-# from tests.Module_Data.user_data import ADMIN_EMAIL, ADMIN_PASSWORD
+# from tests.Demo_Data.user_data import ADMIN_EMAIL, ADMIN_PASSWORD
 from tests.Profile.profile_utils import navigate_to_edit_profile_page, profile_update
 
 

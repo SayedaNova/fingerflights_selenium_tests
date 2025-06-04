@@ -5,7 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from tests.Auth.login_utils import login_with_otp
 from tests.Users.create_user_utils import fill_and_submit_user_form
-from tests.Module_Data.user_info_data import users_to_create
+from tests.Demo_Data.create_user_info_data import users_to_create
 from tests.Users.delete_user_utils import delete_user
 from tests.Users.update_user_utils import update_user
 
@@ -36,29 +36,58 @@ def navigate_to_create_user_page(email, password):
     return driver
 
 def create_users(driver):
+#     for idx, user in enumerate(users_to_create):
+#         #add fake data for user
+#         fill_and_submit_user_form(driver, user)
+#         print(user)
+#
+#         # After form submission, wait for redirection to user list
+#         WebDriverWait(driver, 10).until(EC.url_contains("/user/list"))
+#         time.sleep(5)
+#
+#         # If there are more users to create, go back to /user/create
+#         if idx < len(users_to_create) - 1:
+#             driver.get("http://178.128.114.165:73/user/create")
+#             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "name")))
+#
+#         # # --- Update
+#         updated_user = update_user(driver, user)
+#         time.sleep(2)
+#         # print(f"✅ Updated user: {user['email']}")
+#         # # #
+#         # # # # --- Delete
+#         delete_user(driver, updated_user)
+#         time.sleep(2)
+#         # print(f"✅ Deleted user: {user['email']}")
+
+
     for idx, user in enumerate(users_to_create):
-        #add fake data for user
+        # --- Create user
         fill_and_submit_user_form(driver, user)
-        print(user)
+        print(f"✅ Created user: {user['email']}")
 
-        # After form submission, wait for redirection to user list
+        # Wait for redirection to user list after creation
         WebDriverWait(driver, 10).until(EC.url_contains("/user/list"))
-        time.sleep(5)
+        time.sleep(3)
 
-        # If there are more users to create, go back to /user/create
+        # --- Update user
+        updated_user = update_user(driver, user)
+        print(f"✅ Updated user: {updated_user['email']}")
+        time.sleep(3)
+
+        # --- Delete user
+        delete_user(driver, updated_user)
+        print(f"🗑️ Deleted user: {updated_user['email']}")
+        time.sleep(3)
+
+        # Now redirect to user create page again for next iteration (if more users)
         if idx < len(users_to_create) - 1:
             driver.get("http://178.128.114.165:73/user/create")
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "name")))
+            print("➡️ Ready for next user creation\n")
 
-        # # --- Update
-        updated_user = update_user(driver, user)
-        time.sleep(2)
-        # print(f"✅ Updated user: {user['email']}")
-        # # #
-        # # # # --- Delete
-        delete_user(driver, updated_user)
-        time.sleep(2)
-        # print(f"✅ Deleted user: {user['email']}")
+            time.sleep(3)
+
 
         # # If there are more users to create, go back to /user/create
         # if idx < len(users_to_create) - 1:

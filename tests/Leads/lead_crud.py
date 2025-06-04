@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from tests.Leads.delete_lead_utils import delete_lead
 from tests.Leads.create_lead_utils import fill_and_submit_lead_form
-from tests.Module_Data.lead_data import leads_to_create
+from tests.Demo_Data.create_lead_data import leads_to_create
 from tests.Leads.update_lead_utils import update_lead
 
 # ✅ Define these at the top-level so other modules (like main.py) can import them
@@ -45,18 +45,19 @@ def create_lead(driver):
 
         # After form submission, wait for redirection to user list
         WebDriverWait(driver, 10).until(EC.url_contains("/lead/list"))
-        time.sleep(5)
+        time.sleep(3)
 
-        # If there are more users to create, go back to /user/create
+        updated_lead = update_lead(driver, lead)
+        time.sleep(3)
+
+        delete_lead(driver, updated_lead)
+        time.sleep(3)
+
         if idx < len(leads_to_create) - 1:
             driver.get("http://178.128.114.165:73/lead/create")
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "name")))
-
-        update_lead(driver, lead)
-        time.sleep(2)
-
-        delete_lead(driver, lead)
-        time.sleep(2)
+            print("➡️ Ready for next lead creation\n")
+            time.sleep(3)
 
 # # You can keep this optional block for direct testing
 # if __name__ == "__main__":

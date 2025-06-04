@@ -2,7 +2,7 @@
 # from selenium.webdriver.common.by import By
 # from selenium.webdriver.support.ui import WebDriverWait
 # from selenium.webdriver.support import expected_conditions as EC
-# from tests.Module_Data import role_data
+# from tests.Demo_Data import role_data
 #
 #
 # def update_role(driver, role):

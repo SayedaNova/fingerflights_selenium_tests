@@ -4,7 +4,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-def update_vendor(driver, vendor_data):
+from tests.Demo_Data.update_vendor_data import generate_updated_vendor
+
+
+def update_vendor(driver, original_vendor):
+
+    updated_vendor = generate_updated_vendor(original_vendor)
 
     WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.TAG_NAME, "table")))
 
@@ -13,13 +18,13 @@ def update_vendor(driver, vendor_data):
     # Find the row containing the user by email
     rows = driver.find_elements(By.XPATH, "//tr[contains(@class, 'hover:shadow-md')]")
     for row in rows:
-        if vendor_data["name"] in row.text:
+        if original_vendor["name"] in row.text:
             edit_button = row.find_element(By.XPATH, ".//a[contains(@href, '/update/')]")
             edit_button.click()
             WebDriverWait(driver, 10).until(EC.url_contains("/vendor/update"))
             break
     else:
-        raise Exception(f"❌ Could not find vendor with name: {vendor_data["name"]}")
+        raise Exception(f"❌ Could not find vendor with name: {original_vendor["name"]}")
 
     # --- ✅ Handle Country Dropdown
     country_mapping = {
@@ -266,9 +271,9 @@ def update_vendor(driver, vendor_data):
         "Ivory Coast": "241"
     }
 
-    country_value = country_mapping.get(vendor_data["country"])
+    country_value = country_mapping.get(updated_vendor["country"])
     if not country_value:
-        raise ValueError(f"❌ Unknown country '{vendor_data['country']}' provided!")
+        raise ValueError(f"❌ Unknown country '{updated_vendor['country']}' provided!")
 
     # Select the correct combobox button (e.g. first of multiple)
     country_button = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((
@@ -285,7 +290,7 @@ def update_vendor(driver, vendor_data):
         }
     """, country_value)
 
-    print(f"✅ Set country to: {vendor_data['country']} (value='{country_value}')")
+    print(f"✅ Set country to: {updated_vendor['country']} (value='{country_value}')")
 
     # Close dropdown by sending Escape key
     body = driver.find_element(By.TAG_NAME, 'body')
@@ -294,20 +299,20 @@ def update_vendor(driver, vendor_data):
 
     # Fill the name and balance fields
     driver.find_element(By.NAME, "name").clear()
-    driver.find_element(By.NAME, "name").send_keys(vendor_data["name"])
+    driver.find_element(By.NAME, "name").send_keys(updated_vendor["name"])
     driver.find_element(By.NAME, "balance").clear()
-    driver.find_element(By.NAME, "balance").send_keys(str(vendor_data["balance"]))
+    driver.find_element(By.NAME, "balance").send_keys(str(updated_vendor["balance"]))
 
     # Set status radio button
-    status_value = "1" if vendor_data["status"].lower() == "active" else "0"
+    status_value = "1" if updated_vendor["status"].lower() == "active" else "0"
     status_button = driver.find_element(By.XPATH, f"//button[@role='radio' and @value='{status_value}']")
     driver.execute_script("arguments[0].click();", status_button)
-    print(f"✅ Status set to: {vendor_data['status']}")
+    print(f"✅ Status set to: {updated_vendor['status']}")
 
     # Fill Description Field
     description_input = driver.find_element(By.ID, "description")
     description_input.clear()
-    description_input.send_keys(vendor_data["description"])
+    description_input.send_keys(updated_vendor["description"])
 
     try:
         submit_button = WebDriverWait(driver, 20).until(EC.presence_of_element_located((
@@ -325,5 +330,6 @@ def update_vendor(driver, vendor_data):
 
         WebDriverWait(driver, 20).until(EC.url_contains("/vendor/list"))
         print("✅ Redirected to Vendor List after submission.")
+        print(updated_vendor)
     except Exception as e:
         print(f"❌ Could not submit form or redirect failed: {e}")

@@ -2,7 +2,7 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from tests.Module_Data.update_user_data import generate_updated_user
+from tests.Demo_Data.update_user_data import generate_updated_user
 
 def update_user(driver, original_user):
     updated_user = generate_updated_user(original_user)

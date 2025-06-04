@@ -1,10 +1,15 @@
-from faker import Faker
+# tests/Demo_Data/update_user_data.py
+
 import random
+from datetime import date, timedelta
+
+from faker import Faker
 
 fake = Faker()
 
-def generate_fake_vendors(n):
-    countries = [
+statuses = ["Active", "Disabled"]
+
+countries = [
         "Afghanistan", "Åland Islands", "Albania", "Algeria", "American Samoa", "Andorra", "Angola",
         "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia",
         "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium",
@@ -42,19 +47,11 @@ def generate_fake_vendors(n):
         "Sao Tome and Príncipe", "Syria", "Taiwan", "Tanzania", "Venezuela", "Vietnam", "Ivory Coast"
     ]
 
-    statuses = ["Active", "Disabled"]
-
-    vendors = []
-    for _ in range(n):
-        vendor = {
-            "country": random.choice(countries),
-            "name": fake.name(),
-            "balance": round(random.uniform(1000, 100000)),  # Balance between 1,000 and 100,000 with 2 decimals
-            "status": random.choice(statuses),
-            "description": fake.text(max_nb_chars=20)
-        }
-        vendors.append(vendor)
-    return vendors
-
-# Example usage:
-vendors_to_create = generate_fake_vendors(1)
+def generate_updated_vendor(original_vendor):
+    return {
+        "country": random.choice(countries),
+        "name": original_vendor["name"] + " Updated",
+        "balance": round(random.uniform(1000, 100000)),  # Balance between 1,000 and 100,000 with 2 decimals
+        "status": random.choice(statuses),
+        "description": fake.text(max_nb_chars=20)
+    }

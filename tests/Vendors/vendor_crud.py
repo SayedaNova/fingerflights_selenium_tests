@@ -3,7 +3,7 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from tests.Module_Data.vendor_data import vendors_to_create
+from tests.Demo_Data.create_vendor_data import vendors_to_create
 from tests.Vendors.create_vendor_utils import fill_and_submit_vendor_form
 from tests.Vendors.update_vendor_utils import update_vendor
 
@@ -41,17 +41,17 @@ def create_vendor(driver):
         fill_and_submit_vendor_form(driver, vendor)
         print(idx, vendor)
 
-        # After form submission, wait for redirection to user list
         WebDriverWait(driver, 10).until(EC.url_contains("/vendor/list"))
-        time.sleep(5)
+        time.sleep(3)
 
-        # If there are more users to create, go back to /user/create
+        update_vendor(driver, vendor)
+        time.sleep(3)
+
         if idx < len(vendors_to_create) - 1:
             driver.get("http://178.128.114.165:73/vendor/create")
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, "name")))
-
-        update_vendor(driver, vendor)
-        time.sleep(2)
+            print("➡️ Ready for next vendor creation\n")
+            time.sleep(3)
 
 # # You can keep this optional block for direct testing
 # if __name__ == "__main__":

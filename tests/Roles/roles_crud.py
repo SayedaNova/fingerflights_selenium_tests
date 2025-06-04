@@ -3,7 +3,7 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from tests.Module_Data.role_data import roles_to_create, roles_to_update, generate_fake_roles
+from tests.Demo_Data.create_role_data import roles_to_create, roles_to_update, generate_fake_roles
 from tests.Roles.delete_role_utils import delete_role
 from tests.Roles.create_role_utils import fill_and_submit_role_form
 from tests.Roles.update_role_utils import update_role

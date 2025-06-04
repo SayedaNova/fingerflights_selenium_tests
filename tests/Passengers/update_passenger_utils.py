@@ -5,6 +5,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from tests.Demo_Data.update_passenger_data import generate_updated_passenger
+
+
 def click_date_button_by_label(wait, label_text):
     label = wait.until(EC.presence_of_element_located((By.XPATH, f"//label[contains(text(), '{label_text}')]")))
     button = label.find_element(By.XPATH, ".//following::button")
@@ -54,7 +57,8 @@ def select_date_from_picker(wait, label_text, date_str):
 
     raise Exception(f"Could not select day {target_date.day} for '{label_text}'.")
 
-def update_passenger(driver, passenger_data):
+def update_passenger(driver, original_passenger):
+    updated_passenger = generate_updated_passenger(original_passenger)
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "table")))
 
     time.sleep(3)
@@ -62,13 +66,13 @@ def update_passenger(driver, passenger_data):
     # Find the row containing the user by email
     rows = driver.find_elements(By.XPATH, "//tr[contains(@class, 'hover:shadow-md')]")
     for row in rows:
-        if passenger_data["email"] in row.text:
+        if original_passenger["email"] in row.text:
             edit_button = row.find_element(By.XPATH, ".//a[contains(@href, '/update/')]")
             edit_button.click()
             WebDriverWait(driver, 10).until(EC.url_contains("/passenger/update"))
             break
     else:
-        raise Exception(f"❌ Could not find user with passenger: {passenger_data['email']}")
+        raise Exception(f"❌ Could not find user with passenger: {original_passenger['email']}")
 
     wait = WebDriverWait(driver, 20)
 
@@ -77,34 +81,34 @@ def update_passenger(driver, passenger_data):
     time.sleep(5)
 
     driver.find_element(By.NAME, "first_name").clear()
-    driver.find_element(By.NAME, "first_name").send_keys(passenger_data["first_name"])
+    driver.find_element(By.NAME, "first_name").send_keys(updated_passenger["first_name"])
     driver.find_element(By.NAME, "last_name").clear()
-    driver.find_element(By.NAME, "last_name").send_keys(passenger_data["last_name"])
+    driver.find_element(By.NAME, "last_name").send_keys(updated_passenger["last_name"])
     driver.find_element(By.NAME, "email").clear()
-    driver.find_element(By.NAME, "email").send_keys(passenger_data["email"])
+    driver.find_element(By.NAME, "email").send_keys(updated_passenger["email"])
     driver.find_element(By.NAME, "passport_number").clear()
-    driver.find_element(By.NAME, "passport_number").send_keys(passenger_data["passport_number"])
+    driver.find_element(By.NAME, "passport_number").send_keys(updated_passenger["passport_number"])
     driver.find_element(By.NAME, "contact_number").clear()
-    driver.find_element(By.NAME, "contact_number").send_keys(passenger_data["contact_number"])
+    driver.find_element(By.NAME, "contact_number").send_keys(updated_passenger["contact_number"])
 
-    gender_value = passenger_data["gender"].lower()
+    gender_value = updated_passenger["gender"].lower()
     gender_button = driver.find_element(By.XPATH, f"//button[@role='radio' and @value='{gender_value}']")
     driver.execute_script("arguments[0].click();", gender_button)
-    print(f"✅ Gender updated to: {passenger_data['gender']}")
+    print(f"✅ Gender updated to: {updated_passenger['gender']}")
 
     click_date_button_by_label(wait,"Date of Birth")
     time.sleep(1)
-    select_date_from_picker(wait, "Date of Birth", passenger_data["date_of_birth"])
+    select_date_from_picker(wait, "Date of Birth", updated_passenger["date_of_birth"])
     time.sleep(1)
 
     click_date_button_by_label(wait, "Passport Issue Date")
     time.sleep(1)
-    select_date_from_picker(wait, "Passport Issue Date", passenger_data["passport_issue_date"])
+    select_date_from_picker(wait, "Passport Issue Date", updated_passenger["passport_issue_date"])
     time.sleep(1)
 
     click_date_button_by_label(wait, "Passport Expire Date")
     time.sleep(1)
-    select_date_from_picker(wait, "Passport Expire Date", passenger_data["passport_expiry_date"])
+    select_date_from_picker(wait, "Passport Expire Date", updated_passenger["passport_expiry_date"])
     time.sleep(1)
 
     try:
@@ -123,5 +127,8 @@ def update_passenger(driver, passenger_data):
 
         wait.until(EC.url_contains("/passenger/list"))
         print("✅ Redirected to Passenger List after update.")
+        print(updated_passenger)
     except Exception as e:
         print(f"❌ Could not update form or redirect failed: {e}")
+
+    return updated_passenger
